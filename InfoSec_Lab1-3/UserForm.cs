@@ -18,6 +18,7 @@ namespace InfoSec_Lab1_3
         {
             currentUser = username;
             InitializeComponent();
+            usernameLabel.Text = "Пользователь: " + currentUser;
         }
 
         private void btnChangePassword_Click(object sender, EventArgs e)
@@ -34,6 +35,21 @@ namespace InfoSec_Lab1_3
         private void aboutProgramToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Автор: Вишняков Владимир ИДБ-21-12\nЗадание: Наличие строчных и прописных букв.", "О программе");
+        }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            base.OnFormClosing(e);
+
+            // Получаем ключ для шифрования
+            string passphrase = UserManager.passPhrase;
+            byte[] key = UserManager.GenerateKeyFromPasswordMD2(passphrase, UserManager.LoadOrCreateSalt());
+
+            // Шифруем данные перед закрытием
+            UserManager.EncryptFileWithAES("users_temp.dat", "users.dat", key);
+
+            // Удаляем временный файл
+            UserManager.DeleteTemporaryFile("users_temp.dat");
         }
     }
 }

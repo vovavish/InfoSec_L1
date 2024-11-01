@@ -8,13 +8,39 @@ namespace InfoSec_Lab1_3
         [STAThread]
         static void Main()
         {
-            // To customize application configuration such as set high DPI settings or default font,
-            // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            UserManager.LoadUsers();
+            string passphrase = UserManager.PromptUserForPassphrase();
+            UserManager.passPhrase = passphrase;
+
+            byte[] key = UserManager.GenerateKeyFromPasswordMD2(UserManager.passPhrase, UserManager.LoadOrCreateSalt());
+
+            if (!File.Exists("users.dat"))
+            {
+                // Первый запуск: создаем начальные данные
+                UserManager.LoadUsers(); // Загружаем расшифрованные данные
+                UserManager.SaveUsers("users_temp.dat"); // Сохраняем пользователей временно
+
+                // Зашифровываем с начальной парольной фразой
+                UserManager.EncryptFileWithAES("users_temp.dat", "users.dat", key);
+                File.Delete("users_temp.dat");
+            }
+            else
+            {
+                // Зашифрованный файл существует: расшифровываем для использования
+                try
+                {
+                    UserManager.DecryptFileWithAES("users.dat", "users_temp.dat", key);
+                    UserManager.LoadUsers("users_temp.dat"); // Загружаем расшифрованные данные
+                }
+                catch
+                {
+                    MessageBox.Show("Неверная парольная фраза. Программа завершится.");
+                    return;
+                }
+            }
 
             Application.Run(new LoginForm());
         }

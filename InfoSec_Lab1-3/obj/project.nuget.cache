@@ -1,8 +1,21 @@
 {
   "version": 2,
-  "dgSpecHash": "budjs2znxGM4hgZRx6wjybB0eIOyChiz7r3lpgz/amv5eCX+k/jxWaqdfDxN3P6rF/G7waL0i9keyW+Y7qbvGA==",
+  "dgSpecHash": "VGW8BujWaUw5HFU8ZK7gT/+eXWvnv++N6LU7D7bh1T5pFtospdTrYJ/VPy3gfvnCZG3SmxteYGibmgCCnO3WSw==",
   "success": true,
   "projectFilePath": "C:\\Users\\User\\source\\repos\\InfoSec_Lab1-3\\InfoSec_Lab1-3\\InfoSec_Lab1-3.csproj",
-  "expectedPackageFiles": [],
-  "logs": []
+  "expectedPackageFiles": [
+    "C:\\Users\\User\\.nuget\\packages\\bouncycastle\\1.8.9\\bouncycastle.1.8.9.nupkg.sha512"
+  ],
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Пакет \"BouncyCastle 1.8.9\" был восстановлен с помощью \".NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1\", а не целевой платформы проекта \"net6.0-windows7.0\". Этот пакет может быть не полностью совместим с вашим проектом.",
+      "libraryId": "BouncyCastle",
+      "targetGraphs": [
+        "net6.0-windows7.0"
+      ]
+    }
+  ]
 }
